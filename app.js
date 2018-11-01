@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var pos_api = require('./routes/position');
+var admin_api = require('./routes/admin');
 // var del_api = require('./routes/del');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(`/api/${version}/position`,pos_api)
+app.use(`/api/${version}/admin`,admin_api)
 // app.use(`/api/${version}/del`,del_api)
 
 app.use('/a',a)
