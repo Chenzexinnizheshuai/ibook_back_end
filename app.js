@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var pos_api = require('./routes/position');
+var user_api = require('./routes/user')
 // var del_api = require('./routes/del');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var session = require('express-session')
 // var saveRouter = require('./routes/save');
 var {version} = require('./models/version')
 var a = require('./routes/ar')
@@ -20,6 +21,13 @@ var upload = multer({dest : 'uploads/img'})
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {  httpOnly: false, secure: false, maxAge: 1000 * 60 * 5 }
+}))
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,9 +37,9 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(`/api/${version}/position`,pos_api)
-// app.use(`/api/${version}/del`,del_api)
+app.use(`/api/user`,user_api)
 
-app.use('/a',a)
+
 // app,use('/save',saveRouter)
 
 // catch 404 and forward to error handler

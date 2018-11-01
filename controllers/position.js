@@ -53,10 +53,22 @@ const updata =async (req,res)=>{
 
     res.send(data)
 }
+
+//前台搜索数据，根据搜索框传入的内容返回指定的内容
+const search =async (req,res)=>{
+    console.log(req.query.key)
+    var key = req.query.key;
+    let reg = new RegExp(key,'g')
+    var result =await posmodel.alldata(req,res,{bookname : reg})   
+    res.send(result) 
+    console.log(result,'99999')
+    res.end()
+}
 module.exports={
     pos,
     save,
     del,
     listone,
-    updata
+    updata,
+    search
 }

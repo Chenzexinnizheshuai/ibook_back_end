@@ -30,4 +30,5 @@ router.post('/save',upload.single('photo'),poscontrol.save)//single里的参数�
 router.post('/del',poscontrol.del)
 router.post('/listone',poscontrol.listone)
 router.post('/updata',upload.single('photo'),poscontrol.updata)
+router.get('/search',poscontrol.search)
 module.exports = router
