@@ -13,4 +13,4 @@ const hash = (textplain) => {
     
 }
 
-module.exports = hash
+module.exports = {hash}

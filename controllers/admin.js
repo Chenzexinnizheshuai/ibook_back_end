@@ -35,13 +35,12 @@ const signup = async(req,res,next) =>{
 const signin = async (req,res,next)=>{
     //检测账号是否存在
     let jodge_username = await admin_model.judgeUsername(req.body.username);
-    if( !!jodge_username.length ) { // 如果存在
+    if( jodge_username.length === 1 ) { // 如果存在
         let _data =  await admin_model.signin(req.body.password,jodge_username[0])
         if ( _data ) { // 登录成功
-            res.session.userinfo = {
-                userid: jodge_username[0]._id,
-            }
-
+            req.session.abc = {
+                id: jodge_username[0]._id
+            } 
             res.render('admin', { 
                 code: 200, 
                 data: JSON.stringify('success')
